@@ -36,7 +36,18 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/nxtbgthng/OAuth2Client'
   s.author   = { 'nxtbgthng' => 'team@nxtbgthng.com'}
   s.source   = { :git => 'https://github.com/nxtbgthng/OAuth2Client.git', :tag => "v#{s.version}" }
-  s.source_files = 'NXOAuth2Account+Private.h', 'Sources/', 'Sources/OAuth2Client/'
+  s.source_files = 'NXOAuth2Account+Private.h'
   s.frameworks = 'Security'
   s.requires_arc = true
+
+  s.default_subspec = 'Core'
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'Sources/', 'Sources/OAuth2Client/'
+  end
+
+  s.subspec 'AppExtension' do |ext|
+    ext.source_files = 'Sources/', 'Sources/OAuth2Client/'
+    ext.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'NX_APP_EXTENSIONS=1' }
+  end
 end
